@@ -1,0 +1,30 @@
+* remove duplicates in a query response
+  SELECT DISTINCT c.id, c.name
+  FROM   category c
+* filter records using inequalities, pattern matching, ranges, and boolean logic
+  SELECT DISTINCT c.id, c.name
+  FROM   category c
+  WHERE blank <= blank
+* sort records in a particular order
+  SELECT DISTINCT c.id, c.name
+  FROM   category c
+  WHERE blank <= blank
+  ORDER BY name DESC
+* limit the number of records returned
+  SELECT DISTINCT c.id, c.name
+  FROM   category c
+  LIMIT 4
+* group records into sections
+  SELECT DISTINCT c.id, c.name
+  FROM   category c
+  GROUP BY some_column_in_select
+* perform calculations using aggregate functions
+  SELECT SUM(column1)
+  FROM category c
+  GROUP BY column1
+* join tables using cross join, inner join, and outer join
+  SELECT *
+  FROM category c
+  CROSS JOIN table1 t1 ON t1.column1 = c.column2
+  INNER JOIN table2 t2 ON t2.column1 = t1.column3
+  OUTER JOIN table3 t3 ON t3.column1 = t1.column4
