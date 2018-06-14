@@ -1,0 +1,38 @@
+* What's a RubyGem and why would you use one?
+  a RubyGem is similar to a packet manager, it aids/ eliminate the need for manual installs for software dependencies. You can create one it to help distribute software to be used in other apps. It can be thought of as an extension that helps another app do something else. A bit more than a library but not enough to be a standalone application.
+
+* What's the difference between lazy and eager loading?
+  Eager loading is when you calculate/load all the possibilities and lazy loading is when you load something only when it is needed. there is also a over-eager loading where the code tries to predict what a user will ask for and preload it.
+
+* What's the difference between the CREATE TABLE and INSERT INTO SQL statements?
+  CREATE TABLE is a SQL statement that creates a table, it cannot add records. Where as, INSERT INTO is a statement that inserts records into a table.
+
+* What's the difference between extend and include? When would you use one or the other?
+  the difference is that extend only allows a mod's methods to be added as class methods, if called on an instance of the class it will proc an error. ie: foo.class_method and not foo.new.class_method. and on the other hand include only allows a mod's methods to be used as an instance method. ie: foo.new.instance_method not foo.instance_method.
+
+* In persistence.rb, why do the save methods need to be instance (vs. class) methods?
+  Because save will be called on instances of a class and not the class itself. If we used extend the class method would return a no method error on the record we were trying to save.
+
+* Given the Jar-Jar Binks example earlier, what is the final SQL query in persistence.rb's save! method?
+  UPDATE "character"
+  SET "'Jar-Jar Binks',1"
+  WHERE id = self.id;
+
+* AddressBook's entries instance variable no longer returns anything. We'll fix this in a later checkpoint. What changes will we need to make?
+  We haven't written a way to relate an AddressBook to an Entry. the application does not have a method to call on bloc_records, find or selection methods. although the files are required no method has been written to return any entries. also a text converter to convert snake_case to camelcase.
+
+* Write a Ruby method that converts snake_case to CamelCase using regular expressions (you can test them on Rubular). Send your code in the submission tab.
+  def camelize(snake_cased_word)
+    snake_cased_word.gsub!(/_([a-z])/) { |word| word.upcase }
+    snake_cased_word.gsub!(/_/,'')
+  end
+
+* Add a select method which takes an attribute and value and searches for all records that match:
+  def find_by(attributes, value)
+    att_val = attributes.zip value
+    connection.execute <<-SQL
+      SELECT *
+      FROM #{table}
+      WHERE #{attributes} = #{value}
+    SQL
+  end
